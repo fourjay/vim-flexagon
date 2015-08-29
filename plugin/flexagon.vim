@@ -6,15 +6,24 @@ let g:loaded_flexagon = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+
+let s:folds_list = [  ]
+
+function! Flexagon_register_fold( fold )
+    call add( s:folds_list, a:fold )
+endfunction
+
+call Flexagon_register_fold( "wiki"    )
+call Flexagon_register_fold( "header"  )
+call Flexagon_register_fold( "space"   )
+call Flexagon_register_fold( "comment" )
+call Flexagon_register_fold( "braces"  )
+call Flexagon_register_fold( "code"    )
+call Flexagon_register_fold( "manual"  )
+call Flexagon_register_fold( "indent"  )
+
 function! s:fold_complete(...)
-    return          "wiki\n"
-                \ . "header\n"
-                \ . "space\n"
-                \ . "comment\n"
-                \ . "braces\n"
-                \ . "code\n"
-                \ . "manual\n"
-                \ . "indent\n"
+    return join( s:folds_list, "\n" )
 endfunction
 command! -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custom_fold("<args>")
 
@@ -27,18 +36,8 @@ function! s:custom_fold(fold)
         call <SID>set_stock_fold('indent')
         return
     endif
-    if a:fold ==# "wiki"
-        setlocal foldexpr=flexagon#folds#wiki(v:lnum)
-    elseif a:fold ==# "header"
-        setlocal foldexpr=flexagon#folds#header(v:lnum)
-    elseif a:fold ==# "space"
-        setlocal foldexpr=flexagon#folds#space(v:lnum)
-    elseif a:fold ==# "comment"
-        setlocal foldexpr=flexagon#folds#comment(v:lnum)
-    elseif a:fold ==# "code"
-        setlocal foldexpr=flexagon#folds#code(v:lnum)
-    endif
-    set foldmethod=expr
+    setlocal foldmethod=expr
+    execute "setlocal foldexpr=flexagon#folds#" . a:fold . "(v:lnum)"
     if a:fold ==# "braces"
         setlocal foldmethod=marker
         setlocal foldmarker={,}
@@ -94,18 +93,13 @@ function s:bubble_fold(direction)
     endif
 endfunction
 
-
 nnoremap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
-nnoremap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
-
-map <silent> zJ <Plug>BubbleDown
-map <silent> ZJ <Plug>BubbleDown
+map! <silent> zJ <Plug>BubbleDown
+map! <silent> ZJ <Plug>BubbleDown
 
 nnoremap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
-nnoremap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
-
-map <silent> zK <Plug>BubbleUp
-map <silent> ZK <Plug>BubbleUp
+map! <silent> zK <Plug>BubbleUp
+map! <silent> ZK <Plug>BubbleUp
 
 let &cpo = s:save_cpo 
 unlet s:save_cpo
