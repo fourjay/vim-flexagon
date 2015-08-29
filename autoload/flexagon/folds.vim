@@ -20,6 +20,7 @@ function!  flexagon#folds#wiki(lnum)
     endif
 endfunction
 
+" Fold non-space
 function! flexagon#folds#space(lnum)
     let cline = getline(a:lnum)
     if cline =~# "^$"
@@ -29,6 +30,7 @@ function! flexagon#folds#space(lnum)
     endif
 endfunction
 
+" fold non-comment
 function! flexagon#folds#comment(lnum)
     let cline = getline(a:lnum)
     if cline =~# '^["#;]'
