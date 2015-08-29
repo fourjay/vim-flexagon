@@ -94,10 +94,18 @@ function s:bubble_fold(direction)
     endif
 endfunction
 
-" nnoremap zJ zA<bar>zj<bar>zz<bar>zA nnoremap zK zA<bar>zk<bar>zz<bar>zA
-nnoremap zJ :call <SID>bubble_fold("down")<cr>
-nnoremap ZJ :call <SID>bubble_fold("down")<cr>
-nnoremap zK :call <SID>bubble_fold("up")<cr>
-nnoremap ZK :call <SID>bubble_fold("up")<cr>
+
+nnoremap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
+nnoremap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
+
+map <silent> zJ <Plug>BubbleDown
+map <silent> ZJ <Plug>BubbleDown
+
+nnoremap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
+nnoremap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
+
+map <silent> zK <Plug>BubbleUp
+map <silent> ZK <Plug>BubbleUp
+
 let &cpo = s:save_cpo 
 unlet s:save_cpo
