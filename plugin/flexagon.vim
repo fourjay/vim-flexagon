@@ -88,9 +88,9 @@ function s:bubble_fold(direction)
         normal! zj
     endif
     normal! zz
-    if foldlevel(".") != 0
-        normal! zA
-    endif
+    " if foldlevel(".") != 0
+    "     normal! zA
+    " endif
 endfunction
 
 nnoremap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
