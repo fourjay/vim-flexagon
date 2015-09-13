@@ -70,3 +70,39 @@ function! flexagon#folds#header(lnum)
         return "="
     endif
 endfunction
+
+function! flexagon#folds#html(lnum)
+    if getline( a:lnum ) =~ '.*<h[0-9].*'
+        return ">1"
+    elseif getline( a:lnum +1 ) =~ '.*<h[0-9].*'
+        return "<1"
+    elseif getline( a:lnum ) =~ '.*<head>.*'
+        return ">1"
+    elseif getline( a:lnum ) =~ '.*</head>.*'
+        return "<1"
+    elseif getline( a:lnum ) =~ '.*<script.*>.*</script>.*'
+        return "="
+    elseif getline( a:lnum ) =~ '.*<script.*>.*'
+        return "a1"
+    elseif getline( a:lnum ) =~ '.*</script.*>.*'
+        return "s1"
+    elseif getline( a:lnum ) =~ '.*<div.*>.*</div>.*'
+        return "="
+    elseif getline( a:lnum ) =~ '.*<div.*>.*'
+        return "a1"
+    elseif getline( a:lnum ) =~ '.*</div.*>.*'
+        return "s1"
+    elseif getline( a:lnum ) =~ '.*<style.*>.*</style>.*'
+        return "="
+    elseif getline( a:lnum ) =~ '.*<style.*>.*'
+        return "a1"
+    elseif getline( a:lnum ) =~ '.*</style.*>.*'
+        return "s1"
+    elseif getline( a:lnum ) =~ '.*<[ou]l.*'
+        return "a1"
+    elseif getline( a:lnum ) =~ '.*<\/[ou]l.*'
+        return "s1"
+    else
+        return "="
+    endif
+endfunction

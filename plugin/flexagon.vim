@@ -21,6 +21,7 @@ call Flexagon_register_fold( "braces"  )
 call Flexagon_register_fold( "code"    )
 call Flexagon_register_fold( "manual"  )
 call Flexagon_register_fold( "indent"  )
+call Flexagon_register_fold( "html"    )
 
 function! s:fold_complete(...)
     return join( s:folds_list, "\n" )
