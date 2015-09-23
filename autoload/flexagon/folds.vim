@@ -39,7 +39,7 @@ function! flexagon#folds#comment(lnum)
         return '0'
     elseif cline =~# '^//'
         return '0'
-    elseif cline =~# "^\w*$"
+    elseif cline =~# '^\w*$'
         return '='
     else
         return '2'
@@ -50,7 +50,7 @@ function! flexagon#folds#code(lnum)
     let cline = getline(a:lnum)
     if cline =~# '^["#/;]'
         return '1'
-    elseif cline =~# "^\w*$"
+    elseif cline =~# '^\w*$'
         return '='
     else
         return '0'
