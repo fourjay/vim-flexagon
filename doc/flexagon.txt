@@ -1,0 +1,26 @@
+*vim-flexagon* Easy access to a variety of expression folds
+
+================================================================================
+CONTENTS                            *FlexagonContents*
+
+    1. Introduction.................|FlexagonIntro|
+    2. Approach.....................|FlexagonApproach|
+    3. Usage........................|FlexagonUsage|
+    4. Mappings.....................|FlexagonMappings|
+
+================================================================================
+1. INTRODUCTION                                *FlexagonIntro*
+
+Folding is one of vim's darkest corners. 
+
+
+================================================================================
+2. APPROACH                                *FlexagonApproach*
+
+
+================================================================================
+3. USAGE                                   *FlexagonUsage*
+
+================================================================================
+4. MAPPINGS                               *FlexagonCommands*
+
