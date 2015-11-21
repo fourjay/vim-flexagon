@@ -4,23 +4,22 @@
 CONTENTS                            *FlexagonContents*
 
     1. Introduction.................|FlexagonIntro|
-    2. Approach.....................|FlexagonApproach|
-    3. Usage........................|FlexagonUsage|
-    4. Mappings.....................|FlexagonMappings|
+    2. Folds........................|FlexagonFolds|
 
 ================================================================================
 1. INTRODUCTION                                *FlexagonIntro*
 
-Folding is one of vim's darkest corners. 
+Folding is a dark corner of vim, but potentially quite powerful. It's a
+tool to hide "unimportant" text, but that skirts the question, "what is
+unimportant". This plugin attempts to ease unlocking this power.
+
+This plugin is (mostly) a wrapper around |foldexpr| allowing you to
+easily specify a high level "hiding strategy". It exposes one command
+*Fold:* which takes a folding argument. The options are exposed via tab
+complete.
 
 
 ================================================================================
-2. APPROACH                                *FlexagonApproach*
+2. FOLDS                                   *FlexagonFolds*
 
-
-================================================================================
-3. USAGE                                   *FlexagonUsage*
-
-================================================================================
-4. MAPPINGS                               *FlexagonCommands*
 
