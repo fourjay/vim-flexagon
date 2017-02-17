@@ -22,9 +22,9 @@ endfunction
 
 " Fold non-space
 function! flexagon#folds#space(lnum)
-    let cline = getline(a:lnum)
-    if cline =~# "^$"
-        return '0'
+    let l:cline = getline(a:lnum )
+    if l:cline =~# "^\s*$"
+        return '<1'
     else
         return '1'
     endif
