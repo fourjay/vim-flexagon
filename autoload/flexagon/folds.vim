@@ -10,9 +10,9 @@ function!  flexagon#folds#wiki(lnum)
     if l:cline !~# '='
         return '='
     elseif l:cline =~# '^[^=]*=\s*[^=]\+=[= ]*$'
-        return ">1"
+        return '>1'
     elseif l:cline =~# '^[^=]*==\s*[^=]\+==[= ]*$'
-        return ">2"
+        return '>2'
     elseif l:cline =~# '^[^=]*===\s*[^=]\+===[= ]*$'
         return '>3'
     else
@@ -58,16 +58,16 @@ function! flexagon#folds#code(lnum)
 endfunction
 
 function! flexagon#folds#header(lnum)
-    if   getline( a:lnum - 1 ) =~ '^################'
+    if   getline( a:lnum - 1 ) =~# '^################'
                 \ &&  getline(a:lnum) =~# '\v^# \w+'
-                \ &&  getline( a:lnum + 1 ) =~ '^###################'
+                \ &&  getline( a:lnum + 1 ) =~# '^###################'
         return '>1'
-    elseif   getline( a:lnum - 1 ) =~ '\v(\-|\=){5,}'
-                \ &&  getline(a:lnum) =~ '.\+'
-                \ &&  getline( a:lnum + 1 ) =~ '\v(\-|\=){5,}'
+    elseif   getline( a:lnum - 1 ) =~# '\v(\-|\=){5,}'
+                \ &&  getline(a:lnum) =~# '.\+'
+                \ &&  getline( a:lnum + 1 ) =~# '\v(\-|\=){5,}'
         return '>1'
     else
-        return "="
+        return '='
     endif
 endfunction
 
