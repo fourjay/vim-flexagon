@@ -1,10 +1,10 @@
-if exists("g:loaded_flexagon")
+if exists('g:loaded_flexagon')
     finish
 endif
 let g:loaded_flexagon = 1
 
-let s:save_cpo = &cpo
-set cpo&vim
+let s:save_cpo = &cpoptions
+set cpoptions&vim
 
 
 let s:folds_list = [  ]
@@ -13,15 +13,15 @@ function! Flexagon_register_fold( fold )
     call add( s:folds_list, a:fold )
 endfunction
 
-call Flexagon_register_fold( "wiki"    )
-call Flexagon_register_fold( "header"  )
-call Flexagon_register_fold( "space"   )
-call Flexagon_register_fold( "comment" )
-call Flexagon_register_fold( "braces"  )
-call Flexagon_register_fold( "code"    )
-call Flexagon_register_fold( "manual"  )
-call Flexagon_register_fold( "indent"  )
-call Flexagon_register_fold( "html"    )
+call Flexagon_register_fold( 'wiki'    )
+call Flexagon_register_fold( 'header'  )
+call Flexagon_register_fold( 'space'   )
+call Flexagon_register_fold( 'comment' )
+call Flexagon_register_fold( 'braces'  )
+call Flexagon_register_fold( 'code'    )
+call Flexagon_register_fold( 'manual'  )
+call Flexagon_register_fold( 'indent'  )
+call Flexagon_register_fold( 'html'    )
 
 function! s:fold_complete(...)
     return join( s:folds_list, "\n" )
@@ -29,31 +29,31 @@ endfunction
 command! -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custom_fold("<args>")
 
 function! s:custom_fold(fold)
-    if a:fold ==# "manual"
+    if a:fold ==# 'manual'
         call <SID>set_stock_fold('manual')
         return
     endif
-    if a:fold ==# "indent"
+    if a:fold ==# 'indent'
         call <SID>set_stock_fold('indent')
         return
     endif
     setlocal foldmethod=expr
-    execute "setlocal foldexpr=flexagon#folds#" . a:fold . "(v:lnum)"
-    if a:fold ==# "braces"
+    execute 'setlocal foldexpr=flexagon#folds#' . a:fold . '(v:lnum)'
+    if a:fold ==# 'braces'
         setlocal foldmethod=marker
         setlocal foldmarker={,}
         setlocal foldnestmax=1
     endif
     call <SID>set_fold_settings()
     normal! zz
-    if foldlevel(".") == 0
+    if foldlevel('.') == 0
         normal! zj
     endif
     normal! zA
 endfunction
 
 function! s:set_stock_fold(method)
-    execute "setlocal foldmethod=" . a:method
+    execute 'setlocal foldmethod=' . a:method
     call <SID>set_fold_settings()
 endfunction
 
@@ -80,10 +80,10 @@ endfunction
 set foldtext=FoldText()
 
 function s:bubble_fold(direction)
-    if foldlevel(".") != 0
+    if foldlevel('.') != 0
         normal! zA
     endif
-    if a:direction ==# "up"
+    if a:direction ==# 'up'
         normal! zk
     else
         normal! zj
@@ -102,5 +102,5 @@ nnoremap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
 map! <silent> zK <Plug>BubbleUp
 map! <silent> ZK <Plug>BubbleUp
 
-let &cpo = s:save_cpo 
+let &cpoptions = s:save_cpo
 unlet s:save_cpo
