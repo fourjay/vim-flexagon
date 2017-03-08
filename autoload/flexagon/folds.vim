@@ -5,7 +5,7 @@
 " based on a reddit snippet
 " http://www.reddit.com/r/vim/comments/1hnh8v/question_what_foldmethod_are_you_guys_using_and/
 " Fold by mediawiki header
-function!  flexagon#folds#wiki(lnum)
+function!  flexagon#folds#wiki(lnum) abort
     let l:cline = getline(a:lnum)
     if l:cline !~# '='
         return '='
@@ -21,7 +21,7 @@ function!  flexagon#folds#wiki(lnum)
 endfunction
 
 " Fold non-space
-function! flexagon#folds#space(lnum)
+function! flexagon#folds#space(lnum) abort
     let l:cline = getline(a:lnum )
     if l:cline =~# '^\s*$'
         return '<1'
@@ -31,7 +31,7 @@ function! flexagon#folds#space(lnum)
 endfunction
 
 " fold non-comment
-function! flexagon#folds#comment(lnum)
+function! flexagon#folds#comment(lnum) abort
     let l:cline = getline(a:lnum)
     if l:cline =~# '^["#;]'
         return '0'
@@ -46,7 +46,7 @@ function! flexagon#folds#comment(lnum)
     endif
 endfunction
 
-function! flexagon#folds#code(lnum)
+function! flexagon#folds#code(lnum) abort
     let l:cline = getline(a:lnum)
     if l:cline =~# '^["#/;]'
         return '1'
@@ -57,7 +57,7 @@ function! flexagon#folds#code(lnum)
     endif
 endfunction
 
-function! flexagon#folds#header(lnum)
+function! flexagon#folds#header(lnum) abort
     if   getline( a:lnum - 1 ) =~# '^################'
                 \ &&  getline(a:lnum) =~# '\v^# \w+'
                 \ &&  getline( a:lnum + 1 ) =~# '^###################'
@@ -71,7 +71,7 @@ function! flexagon#folds#header(lnum)
     endif
 endfunction
 
-function! flexagon#folds#html(lnum)
+function! flexagon#folds#html(lnum) abort
     if getline( a:lnum ) =~# '.*<h[0-9].*'
         return '>1'
     elseif getline( a:lnum +1 ) =~# '.*<h[0-9].*'
