@@ -65,17 +65,17 @@ function! s:set_fold_settings()
 endfunction
 
 function! FoldText()
-    let foldsize = (v:foldend-v:foldstart)
-    let line = getline(v:foldstart)
-    let line = line[0:60]
-    let line_leader = "+-" . repeat( '---', v:foldlevel - 1 )
-    let text_length= strlen(line . line_leader)
-    let fillerlength = winwidth(0) - text_length
-    let line_count_text = repeat('+', v:foldlevel) . foldsize . ' lines  '
-    let line_count_filler = repeat( ' ', 15 - len(line_count_text))
-    let line_count_text = line_count_filler . line_count_text
-    let fillerlength = fillerlength - 35
-    return line_leader . '> ' . line . repeat( "-", fillerlength) . line_count_text
+    let l:foldsize = (v:foldend-v:foldstart)
+    let l:line = getline(v:foldstart)
+    let l:line = l:line[0:60]
+    let l:line_leader = '+-' . repeat( '---', v:foldlevel - 1 )
+    let l:text_length= strlen(l:line . l:line_leader)
+    let l:fillerlength = winwidth(0) - l:text_length
+    let l:line_count_text = repeat('+', v:foldlevel) . l:foldsize . ' lines  '
+    let l:line_count_filler = repeat( ' ', 15 - len(l:line_count_text))
+    let l:line_count_text = l:line_count_filler . l:line_count_text
+    let l:fillerlength = l:fillerlength - 35
+    return l:line_leader . '> ' . l:line . repeat( '-', l:fillerlength) . l:line_count_text
 endfunction
 set foldtext=FoldText()
 
