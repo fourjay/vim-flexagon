@@ -28,21 +28,24 @@ Wiki header syntax is intuitive, natural and clean. And it nests!
 # Commands
 
 There is one command **''Fold:''** (shadowing vim's native ``:fold`` commeand). 
-This shadow's vim's native ``:fold`` command.
 It offers tab completion of the various folding methods.
+
+
+## Custom Folds
 
 Currently supported folding arguments:
 
-   ## Custom Folds
-   * *wiki* Use embedded wiki ``=`` heading markers
-      ``
+   * *wiki* Use embedded wiki ``=`` heading markers. Given this code:
+
          # = this is a first level header
          some_code_here();
          # == this is a second level header
          some_more_code_here();
          # === this is a third level header
          even();
-     ``
+
+    ``:Fold wiki`` will create nested folds as indicated.
+    
      Leading comments are expected.
      
    * *markdown* similar to wiki, but use hash header
