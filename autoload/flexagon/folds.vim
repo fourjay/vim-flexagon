@@ -6,14 +6,32 @@
 " http://www.reddit.com/r/vim/comments/1hnh8v/question_what_foldmethod_are_you_guys_using_and/
 " Fold by mediawiki header
 function!  flexagon#folds#wiki(lnum) abort
+    return flexagon#folds#comment_marker(a:lnum, '=')
+endfunction
+
+function!  flexagon#folds#markdown(lnum) abort
+    return flexagon#folds#comment_marker(a:lnum, '#')
+endfunction
+
+function!  flexagon#folds#comment_marker(lnum, leader_char ) abort
     let l:cline = getline(a:lnum)
-    if l:cline !~# '='
-        return '='
-    elseif l:cline =~# '^[^=]*=\s*[^=]\+=[= ]*$'
+    let l:comment_regex = flexagon#folds#comment_regex()
+    if l:comment_regex ==# '#' && a:leader_char ==# '#'
+        let l:comment_regex = ''
+    endif
+    let l:leader = a:leader_char
+    " avoid vim's special regex handling for '='
+    if a:leader_char ==# '='
+        let l:leader_regex = '\' . a:leader_char
+    else
+        let l:leader_regex = a:leader_char
+    endif
+    if l:cline =~# '\v^' . l:comment_regex . '\s*' . l:leader_regex . '[^' . l:leader . ']'
         return '>1'
-    elseif l:cline =~# '^[^=]*==\s*[^=]\+==[= ]*$'
+    elseif l:cline =~# '\v^' . l:comment_regex . '\s*' . l:leader_regex . l:leader_regex . '[^' . l:leader . ']'
         return '>2'
-    elseif l:cline =~# '^[^=]*===\s*[^=]\+===[= ]*$'
+    " collapse further indentation markers to three by removing stop
+    elseif l:cline =~# '\v^' . l:comment_regex . '\s*' . l:leader_regex . l:leader_regex . l:leader_regex
         return '>3'
     else
         return '='
@@ -59,8 +77,13 @@ endfunction
 
 function! flexagon#folds#ini(lnum) abort
     let l:line = getline(a:lnum)
+    let l:prev_line = getline(a:lnum - 1)
     if l:line =~# '^\s*\[[^]]\+\]'
         return '>1'
+    elseif l:line =~# '^\s*;'
+            return '>2'
+    elseif l:prev_line =~# '^\s*$'
+            return '>2'
     endif
     return '='
 endfunction
@@ -126,5 +149,20 @@ function! flexagon#folds#html(lnum) abort
         return 's1'
     else
         return '='
+    endif
+endfunction
+
+function! flexagon#folds#comment_regex() abort
+    let l:ftype = &filetype
+    let l:commentstring = &commentstring
+    if l:ftype ==# 'php'
+        return '(//|#)'
+    elseif l:ftype ==# 'c'
+        return '(/\*|\*/)'
+    endif
+    if l:commentstring !=# '/*%s*/'
+        return  substitute(l:commentstring, '%s', '', '')
+    else
+        return '#'
     endif
 endfunction
