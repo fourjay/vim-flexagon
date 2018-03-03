@@ -35,7 +35,7 @@ It offers tab completion of the various folding methods.
 
 Currently supported folding arguments:
 
-* *wiki* Use embedded wiki ``=`` heading markers. Given this code:
+* ***wiki*** Use embedded wiki ``=`` heading markers. Given this code:
 
          # = this is a first level header
          some_code_here();
@@ -61,6 +61,8 @@ Leading comments are expected.
   any C language family code.
 * **header** "Flower Pot" headers (not particularly sophisticated)
 * ***html*** A not entirely successful attempt to fold HTML
+* ***ini*** fold on DOS INI section headers with second folds on breaks and 
+  comments
 ## Vim Native Folds
 Since I've shadowed vim's native fold command it's only polite to allow 
 switching to those native methods
