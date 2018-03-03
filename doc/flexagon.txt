@@ -21,6 +21,39 @@ complete.
 
 
 ================================================================================
-2. FOLDS                                   *FlexagonFolds*
+2. COMMANDS                                *FlexagonCommands*
+
+                                           *:Fold*
+:Fold [foldtype]      Choose a fold type with tab auto-complete
+
+================================================================================
+3. FOLDS                                   *FlexagonFolds*
+
+wiki        Look for wiki style headers.
+            These fold markers can be after comment markers.
+            Header level's are recognized
+            This makes a decent alternative to vim fold marks that's
+            less obtrusive then vim's choice
+
+header      Look for flowerpot style headers. One level of fold
+
+space       Use blank lines as section/fold separators
+            As a first order fold this works very well on a wide variety
+            of files
+
+comment     fold non-commented code
+
+code        fold comments
+
+braces      Use { and } as markers. For most C inspired code this is an
+            easy first level fold
+
+ini         Fold on INI style headers
+
+html        Fold on H tags
+
+manual      Reset to vim manual folding
+
+indent      Reset to vim indent folding
 
 
