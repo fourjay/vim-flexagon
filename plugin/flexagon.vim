@@ -79,30 +79,30 @@ function! FoldText()
     let l:fillerlength = l:fillerlength - 35
     return l:line_leader . '> ' . l:line . repeat( '-', l:fillerlength) . l:line_count_text
 endfunction
-set foldtext=FoldText()
+
+if ! exists('flexagon_disable_foldtext')
+    set foldtext=FoldText()
+endif
 
 function s:bubble_fold(direction)
     if foldlevel('.') != 0
-        normal! zA
+        normal! zC
     endif
     if a:direction ==# 'up'
         normal! zk
     else
         normal! zj
     endif
-    normal! zz
-    " if foldlevel(".") != 0
-    "     normal! zA
-    " endif
+    normal! zO
+    normal! [z
+    normal! zt
 endfunction
 
-nnoremap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
-map! <silent> zJ <Plug>BubbleDown
-map! <silent> ZJ <Plug>BubbleDown
+nmap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
+nmap <unique> <silent> ZJ <Plug>BubbleDown
 
-nnoremap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
-map! <silent> zK <Plug>BubbleUp
-map! <silent> ZK <Plug>BubbleUp
+nmap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
+nmap <unique> <silent> ZK <Plug>BubbleUp
 
 let &cpoptions = s:save_cpo
 unlet s:save_cpo

@@ -1,8 +1,11 @@
-# A Vim fold method method manager
+# Flexagon, A Vim fold method method manager
 
 A wrapper around vims folding to easily switch between various folding schemes 
 and some useful pre-packaged schemes, all designed to be easily discovered and 
 easily switched.
+
+Flexagon also provides some custom fold presentation and a "bubble" Plug 
+mapping to walk through folds.
 
 # Overview
 

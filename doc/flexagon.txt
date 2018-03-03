@@ -5,7 +5,9 @@ CONTENTS                            *FlexagonContents*
 
     1. Introduction.................|FlexagonIntro|
     2. Commands.....................|FlexagonCommands|
-    2. Folds........................|FlexagonFolds|
+    3. Folds........................|FlexagonFolds|
+    4. Settings.....................|FlexagonSettings|
+    5. Mappings.....................|FlexagonMapppins|
 
 ================================================================================
 1. INTRODUCTION                                *FlexagonIntro*
@@ -57,3 +59,25 @@ manual      Reset to vim manual folding
 indent      Reset to vim indent folding
 
 
+================================================================================
+4. SETTINGS                                *FlexagonSettings*
+
+                                           *flexagon_disable_foldtext* 
+I've added foldtext formatting that appeals to me. It's enabled by
+default. Disable it as desired.
+
+let g:flexagon_disable_foldtext = 1
+
+================================================================================
+4. MAPPINGS                                *FlexagonFolds*
+
+Flexagon provides a utility "bubble" function to walk up and down top
+lecel folds. By default there are mappings for ZJ and ZJ mirroring vim's
+native zj and zk mappings. These two mapping are meant to walk through
+folded code, expanding the next or last fold and closing the prior fold
+The mappings use <unique> to avoid stepping on personal mappings.
+There's no current vim mapping for those mappings. There are two <Plug>
+mappings
+
+<Plug>BubbleDown
+<Plug>BubbleUp
