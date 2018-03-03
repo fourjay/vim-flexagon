@@ -35,37 +35,37 @@ It offers tab completion of the various folding methods.
 
 Currently supported folding arguments:
 
-   * *wiki* Use embedded wiki ``=`` heading markers. Given this code:
+* *wiki* Use embedded wiki ``=`` heading markers. Given this code:
 
          # = this is a first level header
          some_code_here();
          # == this is a second level header
          some_more_code_here();
          # === this is a third level header
-         even();
+         even_more_code();
 
-    ``:Fold wiki`` will create nested folds as indicated.
+``:Fold wiki`` will create nested folds as indicated.
     
-     Leading comments are expected.
+Leading comments are expected.
      
-   * *markdown* similar to wiki, but use hash header
-   * *space* space separated sections (i.e. "paragraphs")
-     Since spaces often separate "ideas" this Fold provides an overview of the 
-     ideas in the code.
-   * *comment* hide code and show comments. This approximates "literate" code 
-     (Donald Knuth's interesting idea). 
-   * *code* This is the inverse of comment above, showing only code. This is 
-     useful in code with excess comments (yes this exists :-) )
-   * *braces* Fold on brace characters. I found this in Steve Losh's .vimrc and 
-     immediately wondered why this wasn't a standard. It's a very good fit for 
-     any C language family code.
-   * header "Flower Pot" headers (not particularly sophisticated)
-   * *html* A not entirely successful attempt to fold HTML
-   ## Vim Native Folds
-   Since I've shadowed vim's native fold command it's only polite to allow 
-   switching to those native methods
-   * *manual*
-   * *indent*
+* ***markdown*** similar to wiki, but use hash header
+* ***space*** space separated sections (i.e. "paragraphs")
+    Since spaces often separate "ideas" this Fold provides an overview of the 
+    ideas in the code.
+* ***comment*** hide code and show comments. This approximates "literate" code 
+  (Donald Knuth's interesting idea). 
+* ***code*** This is the inverse of comment above, showing only code. This is 
+  useful in code with excess comments (yes this exists :-) )
+* ***braces*** Fold on brace characters. I found this in Steve Losh's .vimrc 
+  and immediately wondered why this wasn't a standard. It's a very good fit for 
+  any C language family code.
+* **header** "Flower Pot" headers (not particularly sophisticated)
+* ***html*** A not entirely successful attempt to fold HTML
+## Vim Native Folds
+Since I've shadowed vim's native fold command it's only polite to allow 
+switching to those native methods
+* ***manual***
+* ***indent***
 
 
 # Discussion
