@@ -4,6 +4,7 @@
 CONTENTS                            *FlexagonContents*
 
     1. Introduction.................|FlexagonIntro|
+    2. Commands.....................|FlexagonCommands|
     2. Folds........................|FlexagonFolds|
 
 ================================================================================
