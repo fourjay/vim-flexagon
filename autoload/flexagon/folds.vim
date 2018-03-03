@@ -57,6 +57,14 @@ function! flexagon#folds#code(lnum) abort
     endif
 endfunction
 
+function! flexagon#folds#ini(lnum) abort
+    let l:line = getline(a:lnum)
+    if l:line =~# '^\s*\[[^]]\+\]'
+        return '>1'
+    endif
+    return '='
+endfunction
+    
 function! flexagon#folds#header(lnum) abort
     if   getline( a:lnum - 1 ) =~# '^################'
                 \ &&  getline(a:lnum) =~# '\v^# \w+'
