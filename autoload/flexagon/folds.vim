@@ -159,6 +159,8 @@ function! flexagon#folds#comment_regex() abort
         return '(//|#)'
     elseif l:ftype ==# 'c'
         return '(/\*|\*/)'
+    elseif l:ftype ==# 'markdown' || l:ftype ==# 'pandoc'
+        return ''
     endif
     if l:commentstring !=# '/*%s*/'
         return  substitute(l:commentstring, '%s', '', '')
