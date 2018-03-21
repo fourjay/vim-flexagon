@@ -51,22 +51,29 @@ endfunction
 " fold non-comment
 function! flexagon#folds#comment(lnum) abort
     let l:cline = getline(a:lnum)
-    if l:cline =~# '^["#;]'
-        return '0'
-    elseif l:cline =~# '^--'
-        return '0'
-    elseif l:cline =~# '^//'
+    if flexagon#folds#iscomment(a:lnum)
         return '0'
     elseif l:cline =~# '^\w*$'
         return '='
     else
-        return '2'
+        return '1'
+    endif
+endfunction
+
+function! flexagon#folds#iscomment(lnum) abort
+    let l:start = match(getline(a:lnum), '\v\s*\zs\S') + 1
+    let l:syn_id = synID( a:lnum, l:start, 0)
+    let l:syn_name = synIDattr( l:syn_id, 'name')
+    if l:syn_name =~? 'comment'
+        return 1
+    else
+        return 0
     endif
 endfunction
 
 function! flexagon#folds#code(lnum) abort
     let l:cline = getline(a:lnum)
-    if l:cline =~# '^["#/;]'
+    if flexagon#folds#iscomment(a:lnum)
         return '1'
     elseif l:cline =~# '^\w*$'
         return '='
