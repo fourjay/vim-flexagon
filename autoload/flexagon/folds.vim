@@ -1,18 +1,50 @@
 " Public Folding calls for flexagon
-"
-" Folds have to be publicly visible
 
-" based on a reddit snippet
-" http://www.reddit.com/r/vim/comments/1hnh8v/question_what_foldmethod_are_you_guys_using_and/
+" HELPER_FUNCTIONS =======================================================
+"
+" test vim syntax notions of comment
+function! flexagon#folds#iscomment(lnum) abort
+    let l:start = match(getline(a:lnum), '\v\s*\zs\S') + 1
+    let l:syn_id = synID( a:lnum, l:start, 0)
+    let l:syn_name = synIDattr( l:syn_id, 'name')
+    if l:syn_name =~? 'comment'
+        return 1
+    else
+        return 0
+    endif
+endfunction
+
+" return aproximate comment string
+function! flexagon#folds#comment_regex() abort
+    let l:ftype = &filetype
+    let l:commentstring = &commentstring
+    if l:ftype ==# 'php'
+        return '(//|#)'
+    elseif l:ftype ==# 'c'
+        return '(/\*|\*/)'
+    elseif l:ftype ==# 'markdown' || l:ftype ==# 'pandoc'
+        return ''
+    endif
+    if l:commentstring !=# '/*%s*/'
+        return  substitute(l:commentstring, '%s', '', '')
+    else
+        return '#'
+    endif
+endfunction
+
+" MAIN FOLDS ================================================================
 " Fold by mediawiki header
+" http://www.reddit.com/r/vim/comments/1hnh8v/question_what_foldmethod_are_you_guys_using_and/
 function!  flexagon#folds#wiki(lnum) abort
     return flexagon#folds#comment_marker(a:lnum, '=')
 endfunction
 
+" similar idea with markdown headers in comments
 function!  flexagon#folds#markdown(lnum) abort
     return flexagon#folds#comment_marker(a:lnum, '#')
 endfunction
 
+" factor out comment style
 function!  flexagon#folds#comment_marker(lnum, leader_char ) abort
     let l:cline = getline(a:lnum)
     let l:comment_regex = flexagon#folds#comment_regex()
@@ -60,17 +92,7 @@ function! flexagon#folds#comment(lnum) abort
     endif
 endfunction
 
-function! flexagon#folds#iscomment(lnum) abort
-    let l:start = match(getline(a:lnum), '\v\s*\zs\S') + 1
-    let l:syn_id = synID( a:lnum, l:start, 0)
-    let l:syn_name = synIDattr( l:syn_id, 'name')
-    if l:syn_name =~? 'comment'
-        return 1
-    else
-        return 0
-    endif
-endfunction
-
+" fold non code
 function! flexagon#folds#code(lnum) abort
     let l:cline = getline(a:lnum)
     if flexagon#folds#iscomment(a:lnum)
@@ -82,6 +104,7 @@ function! flexagon#folds#code(lnum) abort
     endif
 endfunction
 
+" basic folding ini files
 function! flexagon#folds#ini(lnum) abort
     let l:line = getline(a:lnum)
     let l:prev_line = getline(a:lnum - 1)
@@ -95,6 +118,7 @@ function! flexagon#folds#ini(lnum) abort
     return '='
 endfunction
     
+" flowerpot style headers
 function! flexagon#folds#header(lnum) abort
     if   getline( a:lnum - 1 ) =~# '^################'
                 \ &&  getline(a:lnum) =~# '\v^# \w+'
@@ -109,6 +133,7 @@ function! flexagon#folds#header(lnum) abort
     endif
 endfunction
 
+" FIXME partially working HTML structuring folds
 function! flexagon#folds#html(lnum) abort
     if getline( a:lnum ) =~# '.*<h[0-9].*'
         return '>1'
@@ -159,19 +184,3 @@ function! flexagon#folds#html(lnum) abort
     endif
 endfunction
 
-function! flexagon#folds#comment_regex() abort
-    let l:ftype = &filetype
-    let l:commentstring = &commentstring
-    if l:ftype ==# 'php'
-        return '(//|#)'
-    elseif l:ftype ==# 'c'
-        return '(/\*|\*/)'
-    elseif l:ftype ==# 'markdown' || l:ftype ==# 'pandoc'
-        return ''
-    endif
-    if l:commentstring !=# '/*%s*/'
-        return  substitute(l:commentstring, '%s', '', '')
-    else
-        return '#'
-    endif
-endfunction

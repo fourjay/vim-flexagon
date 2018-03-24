@@ -1,0 +1,54 @@
+Given sh (mediawiki comments):
+  # = H-1 =============
+  This is not a comment
+  # == H-2 =============
+  # == no closing mark
+
+Execute (test mediawiki folds):
+  AssertEqual flexagon#folds#comment_marker(1, "="), '>1'
+  AssertEqual flexagon#folds#comment_marker(2, "="), '='
+  AssertEqual flexagon#folds#comment_marker(3, "="), '>2'
+  AssertEqual flexagon#folds#comment_marker(4, "="), '>2'
+
+Given sh (markdown comments):
+  # H-1 =============
+  This is not a comment
+  ## H-2 =============
+  ## no closing mark
+
+Execute (test markdown comments):
+  AssertEqual flexagon#folds#comment_marker(1, "#"), '>1'
+  AssertEqual flexagon#folds#comment_marker(2, "#"), '='
+  AssertEqual flexagon#folds#comment_marker(3, "#"), '>2'
+  AssertEqual flexagon#folds#comment_marker(4, "#"), '>2'
+
+Given markdown (regular markdown):
+  # H-1 =============
+  This is not a comment
+  ## H-2 =============
+  ## no closing mark
+
+Execute (test regular markdown):
+  AssertEqual flexagon#folds#comment_marker(1, "#"), '>1'
+  AssertEqual flexagon#folds#comment_marker(2, "#"), '='
+  AssertEqual flexagon#folds#comment_marker(3, "#"), '>2'
+  AssertEqual flexagon#folds#comment_marker(4, "#"), '>2'
+
+Given sh (header):
+  # H-1 =============
+  This is not a comment
+  ## H-2 =============
+  ## no bar
+  ## -----------------
+  ## +++++++++++++++++
+
+Execute (test regular markdown):
+  AssertEqual flexagon#folds#header(1), '>1'
+  AssertEqual flexagon#folds#header(2), '='
+  AssertEqual flexagon#folds#header(3), '>1'
+  AssertEqual flexagon#folds#header(4), '='
+  AssertEqual flexagon#folds#header(5), '>1'
+  AssertEqual flexagon#folds#header(6), '='
+
+
+
