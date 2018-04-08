@@ -106,6 +106,9 @@ endfunction
 
 " basic folding ini files
 function! flexagon#folds#ini(lnum) abort
+    if ! flexagon#folds#iscomment(a:lnum)
+        return '='
+    endif
     let l:line = getline(a:lnum)
     let l:prev_line = getline(a:lnum - 1)
     if l:line =~# '^\s*\[[^]]\+\]'
@@ -120,17 +123,20 @@ endfunction
     
 " flowerpot style headers
 function! flexagon#folds#header(lnum) abort
-    if   getline( a:lnum - 1 ) =~# '^################'
-                \ &&  getline(a:lnum) =~# '\v^# \w+'
-                \ &&  getline( a:lnum + 1 ) =~# '^###################'
-        return '>1'
-    elseif   getline( a:lnum - 1 ) =~# '\v(\-|\=){5,}'
-                \ &&  getline(a:lnum) =~# '.\+'
-                \ &&  getline( a:lnum + 1 ) =~# '\v(\-|\=){5,}'
-        return '>1'
-    else
+    if ! flexagon#folds#iscomment(a:lnum)
         return '='
     endif
+    " has some content
+    if  getline(a:lnum) =~# '\v\S{2,}'
+        " if before or after is flowerpot
+        if getline( a:lnum - 1 ) =~# '\v[*+=_-]{5,}'
+                    \ ||  getline( a:lnum + 1 ) =~# '\v[*+=_-]{5,}'
+            return '>1'
+        else
+            return '='
+        endif
+    endif
+    return '='
 endfunction
 
 " FIXME partially working HTML structuring folds
