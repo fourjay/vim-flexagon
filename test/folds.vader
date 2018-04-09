@@ -4,23 +4,29 @@ Given sh (mediawiki comments):
   # == H-2 =============
   # == no closing mark
 
-Execute (test mediawiki folds):
+Execute (test mediawiki H1):
   AssertEqual flexagon#folds#comment_marker(1, "="), '>1'
+Execute (test mediawiki non-comment):
   AssertEqual flexagon#folds#comment_marker(2, "="), '='
+Execute (test mediawiki H2):
   AssertEqual flexagon#folds#comment_marker(3, "="), '>2'
+Execute (test mediawiki H2 no closing):
   AssertEqual flexagon#folds#comment_marker(4, "="), '>2'
 
 Given sh (markdown comments):
-  # H-1 =============
+  # Normal comment
   This is not a comment
-  ## H-2 =============
-  ## no closing mark
+  ## H1
+  ### H3
 
-Execute (test markdown comments):
-  AssertEqual flexagon#folds#comment_marker(1, "#"), '>1'
+Execute (test markdown shell comments H1):
+  AssertEqual flexagon#folds#comment_marker(1, "#"), '='
+Execute (test markdown shell comments non-comment):
   AssertEqual flexagon#folds#comment_marker(2, "#"), '='
-  AssertEqual flexagon#folds#comment_marker(3, "#"), '>2'
-  AssertEqual flexagon#folds#comment_marker(4, "#"), '>2'
+Execute (test markdown shell comments H2):
+  AssertEqual flexagon#folds#markdown(3), '>1'
+Execute (test markdown shell comments H3):
+  AssertEqual flexagon#folds#markdown(4), '>2'
 
 Given markdown (regular markdown):
   # H-1 =============
@@ -28,11 +34,13 @@ Given markdown (regular markdown):
   ## H-2 =============
   ## no closing mark
 
-Execute (test regular markdown):
-  AssertEqual flexagon#folds#comment_marker(1, "#"), '>1'
-  AssertEqual flexagon#folds#comment_marker(2, "#"), '='
-  AssertEqual flexagon#folds#comment_marker(3, "#"), '>2'
-  AssertEqual flexagon#folds#comment_marker(4, "#"), '>2'
+Execute (test regular markdown H1):
+  AssertEqual flexagon#folds#markdown(1), '>1'
+Execute (test regular markdown not comment):
+  AssertEqual flexagon#folds#markdown(2), '='
+Execute (test regular markdown H2):
+  AssertEqual flexagon#folds#markdown(3), '>2'
+  AssertEqual flexagon#folds#markdown(4), '>2'
 
 Given sh (header):
   # 1 =============
