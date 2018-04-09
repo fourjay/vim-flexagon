@@ -41,33 +41,46 @@ endfunction
 
 " similar idea with markdown headers in comments
 function!  flexagon#folds#markdown(lnum) abort
-    return flexagon#folds#comment_marker(a:lnum, '#')
+    if &filetype =~# '\vmarkdown|pandoc'
+        return flexagon#folds#markdown_filetype(a:lnum)
+    else
+        return flexagon#folds#comment_marker(a:lnum, '#')
+    endif
+endfunction
+
+function! flexagon#folds#markdown_filetype(lnum) abort
+    if flexagon#folds#iscomment(a:lnum)
+        return '='
+    endif
+    let l:cline = getline(a:lnum)
+    for l:i in [1, 2, 3, 4]
+        if match( l:cline, '\v^[#]{' . l:i . '}[^#]' ) != -1
+            return '>' . l:i
+        endif
+    endfor
+    return '='
 endfunction
 
 " factor out comment style
 function!  flexagon#folds#comment_marker(lnum, leader_char ) abort
-    let l:cline = getline(a:lnum)
-    let l:comment_regex = flexagon#folds#comment_regex()
-    if l:comment_regex ==# '#' && a:leader_char ==# '#'
-        let l:comment_regex = ''
-    endif
-    let l:leader = a:leader_char
-    " avoid vim's special regex handling for '='
-    if a:leader_char ==# '='
-        let l:leader_regex = '\' . a:leader_char
-    else
-        let l:leader_regex = a:leader_char
-    endif
-    if l:cline =~# '\v^' . l:comment_regex . '\s*' . l:leader_regex . '[^' . l:leader . ']'
-        return '>1'
-    elseif l:cline =~# '\v^' . l:comment_regex . '\s*' . l:leader_regex . l:leader_regex . '[^' . l:leader . ']'
-        return '>2'
-    " collapse further indentation markers to three by removing stop
-    elseif l:cline =~# '\v^' . l:comment_regex . '\s*' . l:leader_regex . l:leader_regex . l:leader_regex
-        return '>3'
-    else
+    if ! flexagon#folds#iscomment(a:lnum)
         return '='
     endif
+    let l:cline = strpart( getline(a:lnum), 0, 8)
+    for l:i in [ 1, 2, 3, 4]
+        if match( l:cline, '\v^[^' . a:leader_char . ']*[' . a:leader_char . ']{' . l:i . '}[^' . a:leader_char . ']' ) != -1
+            if a:leader_char ==# '#' && &commentstring =~# '#'
+                if l:i == 1
+                    continue
+                else
+                    return '>' . ( l:i - 1 )
+                endif
+            else
+                return '>' . l:i
+            endif
+        endif
+    endfor
+    return '='
 endfunction
 
 " Fold non-space
@@ -106,6 +119,9 @@ endfunction
 
 " basic folding ini files
 function! flexagon#folds#ini(lnum) abort
+    if flexagon#folds#iscomment(a:lnum)
+        return '='
+    endif
     let l:line = getline(a:lnum)
     let l:prev_line = getline(a:lnum - 1)
     if l:line =~# '^\s*\[[^]]\+\]'
@@ -120,17 +136,20 @@ endfunction
     
 " flowerpot style headers
 function! flexagon#folds#header(lnum) abort
-    if   getline( a:lnum - 1 ) =~# '^################'
-                \ &&  getline(a:lnum) =~# '\v^# \w+'
-                \ &&  getline( a:lnum + 1 ) =~# '^###################'
-        return '>1'
-    elseif   getline( a:lnum - 1 ) =~# '\v(\-|\=){5,}'
-                \ &&  getline(a:lnum) =~# '.\+'
-                \ &&  getline( a:lnum + 1 ) =~# '\v(\-|\=){5,}'
-        return '>1'
-    else
+    if ! flexagon#folds#iscomment(a:lnum)
         return '='
     endif
+    " has some content
+    if  getline(a:lnum) =~# '\v\S{2,}'
+        " if before or after is flowerpot
+        if getline( a:lnum - 1 ) =~# '\v[*+=_-]{5,}'
+                    \ ||  getline( a:lnum + 1 ) =~# '\v[*+=_-]{5,}'
+            return '>1'
+        else
+            return '='
+        endif
+    endif
+    return '='
 endfunction
 
 " FIXME partially working HTML structuring folds
