@@ -23,6 +23,7 @@ call Flexagon_register_fold( 'ini'      )
 call Flexagon_register_fold( 'manual'   )
 call Flexagon_register_fold( 'markdown' )
 call Flexagon_register_fold( 'indent'   )
+call Flexagon_register_fold( 'function' )
 call Flexagon_register_fold( 'html'     )
 
 function! s:fold_complete(...)

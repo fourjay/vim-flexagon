@@ -1,46 +1,45 @@
 " Public Folding calls for flexagon
 
-" HELPER_FUNCTIONS =======================================================
+" # HELPER_FUNCTIONS =======================================================
 "
 " test vim syntax notions of comment
 function! flexagon#folds#iscomment(lnum) abort
+    return flexagon#folds#match_line_syntax(a:lnum, 'comment')
+endfunction
+
+function! flexagon#folds#is_function(lnum) abort
+    return flexagon#folds#match_line_syntax(a:lnum, '\vfunckey|function')
+endfunction
+
+function! flexagon#folds#match_line_syntax(lnum, matchstring) abort
     let l:start = match(getline(a:lnum), '\v\s*\zs\S') + 1
     let l:syn_id = synID( a:lnum, l:start, 0)
     let l:syn_name = synIDattr( l:syn_id, 'name')
-    if l:syn_name =~? 'comment'
+    if l:syn_name =~? a:matchstring
         return 1
     else
         return 0
     endif
 endfunction
 
-" return aproximate comment string
-function! flexagon#folds#comment_regex() abort
-    let l:ftype = &filetype
-    let l:commentstring = &commentstring
-    if l:ftype ==# 'php'
-        return '(//|#)'
-    elseif l:ftype ==# 'c'
-        return '(/\*|\*/)'
-    elseif l:ftype ==# 'markdown' || l:ftype ==# 'pandoc'
-        return ''
-    endif
-    if l:commentstring !=# '/*%s*/'
-        return  substitute(l:commentstring, '%s', '', '')
+" # MAIN FOLDS ================================================================
+
+function! flexagon#folds#function(lnum) abort
+    if flexagon#folds#is_function(a:lnum)
+        return '>1'
     else
-        return '#'
+        return '='
     endif
 endfunction
 
-" MAIN FOLDS ================================================================
 " Fold by mediawiki header
 " http://www.reddit.com/r/vim/comments/1hnh8v/question_what_foldmethod_are_you_guys_using_and/
-function!  flexagon#folds#wiki(lnum) abort
+function! flexagon#folds#wiki(lnum) abort
     return flexagon#folds#comment_marker(a:lnum, '=')
 endfunction
 
 " similar idea with markdown headers in comments
-function!  flexagon#folds#markdown(lnum) abort
+function! flexagon#folds#markdown(lnum) abort
     if &filetype =~# '\vmarkdown|pandoc'
         return flexagon#folds#markdown_filetype(a:lnum)
     else
@@ -62,7 +61,7 @@ function! flexagon#folds#markdown_filetype(lnum) abort
 endfunction
 
 " factor out comment style
-function!  flexagon#folds#comment_marker(lnum, leader_char ) abort
+function! flexagon#folds#comment_marker(lnum, leader_char ) abort
     if ! flexagon#folds#iscomment(a:lnum)
         return '='
     endif
