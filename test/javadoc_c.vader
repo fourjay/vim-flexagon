@@ -1,0 +1,16 @@
+Given c (javadoc style c):
+  #include <stdio.h>
+  /* normal comment 2 */
+  /** simple header  3 */
+  /*! bang header  4 */
+
+Execute (c normal comment):
+  AssertEqual flexagon#folds#javadoc(2), '='
+Execute (c normal header):
+  AssertEqual flexagon#folds#javadoc(3), '>1'
+Execute (c normal header):
+  AssertEqual flexagon#folds#javadoc(3), '>1'
+Execute (c bang header):
+  AssertEqual flexagon#folds#javadoc(3), '>1'
+
+

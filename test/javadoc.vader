@@ -1,0 +1,66 @@
+Given sh (javadoc style shell):
+  # normal comment
+  echo some stuff
+
+  ## H1
+  echo some more stuff
+
+Execute (normal comment):
+  AssertEqual flexagon#folds#javadoc(1), '='
+Execute (normal not comment):
+  AssertEqual flexagon#folds#javadoc(2), '='
+Execute (blank):
+  AssertEqual flexagon#folds#javadoc(3), '='
+Execute (doubled header):
+  AssertEqual flexagon#folds#javadoc(4), '>1'
+Execute (normal code):
+  AssertEqual flexagon#folds#javadoc(5), '='
+
+Given vim (javadoc style vim):
+  " normal comment
+  echo some stuff 2
+
+  "" H1 4
+  echo some more stuff 5
+       "" H1 6
+
+Execute (vim normal comment):
+  AssertEqual flexagon#folds#javadoc(1), '='
+Execute (vim normal not comment):
+  AssertEqual flexagon#folds#javadoc(2), '='
+Execute (vim blank):
+  AssertEqual flexagon#folds#javadoc(3), '='
+Execute (vim doubled header):
+  AssertEqual flexagon#folds#javadoc(4), '>1'
+Execute (vim normal code):
+  AssertEqual flexagon#folds#javadoc(5), '='
+Execute (vim whitespace plus header):
+  AssertEqual flexagon#folds#javadoc(6), '>1'
+
+Given php (javadoc style php):
+  <?php
+  # comment 2
+  echo "some stuff 3";
+  
+  ## H1 5
+  echo "some more stuff 6";
+  // comment 7
+  /// header 8
+      /// header 9
+
+Execute (php normal comment):
+  AssertEqual flexagon#folds#javadoc(2), '='
+Execute (php normal not comment):
+  AssertEqual flexagon#folds#javadoc(3), '='
+Execute (php blank):
+  AssertEqual flexagon#folds#javadoc(4), '='
+Execute (php doubled header):
+  AssertEqual flexagon#folds#javadoc(5), '>1'
+Execute (php normal code):
+  AssertEqual flexagon#folds#javadoc(6), '='
+Execute (php more commands):
+  AssertEqual flexagon#folds#javadoc(7), '='
+Execute (php leader triple slash):
+  AssertEqual flexagon#folds#javadoc(8), '>1'
+Execute (php space leader triple slash):
+  AssertEqual flexagon#folds#javadoc(8), '>1'
