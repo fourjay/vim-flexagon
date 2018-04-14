@@ -1,0 +1,16 @@
+Given sh (mediawiki comments):
+  # = H-1 =============
+  This is not a comment
+  # == H-2 =============
+  # == no closing mark
+
+Execute (test mediawiki H1):
+  AssertEqual flexagon#folds#comment_marker(1, "="), '>1'
+Execute (test mediawiki non-comment):
+  AssertEqual flexagon#folds#comment_marker(2, "="), '='
+Execute (test mediawiki H2):
+  AssertEqual flexagon#folds#comment_marker(3, "="), '>2'
+Execute (test mediawiki H2 no closing):
+  AssertEqual flexagon#folds#comment_marker(4, "="), '>2'
+
+

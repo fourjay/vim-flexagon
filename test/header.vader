@@ -1,0 +1,32 @@
+Given sh (header):
+  # 1 =============
+  # 2 This is not a comment
+  # 3 =============
+  # 4test
+  # 5 -----------------
+  # 6test
+  # 7++++++++++++++++
+  #
+
+Execute (test flowerpot header line):
+  AssertEqual flexagon#folds#header(1), '='
+  AssertEqual flexagon#folds#header(2), '>1'
+  AssertEqual flexagon#folds#header(3), '='
+  AssertEqual flexagon#folds#header(4), '>1'
+  AssertEqual flexagon#folds#header(5), '='
+  AssertEqual flexagon#folds#header(6), '>1'
+
+Given c (header):
+  #include 'stdio.h';
+    /*********************
+     * this is a comment 3
+     */
+  #include 'stdio.h';
+
+Execute (test flowerpot header line):
+  AssertEqual flexagon#folds#header(1), '='
+  AssertEqual flexagon#folds#header(2), '='
+  AssertEqual flexagon#folds#header(3), '>1'
+  AssertEqual flexagon#folds#header(4), '='
+  AssertEqual flexagon#folds#header(5), '='
+

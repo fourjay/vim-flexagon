@@ -1,0 +1,30 @@
+Given sh (markdown comments):
+  # Normal comment
+  This is not a comment
+  ## H1
+  ### H3
+
+Execute (test markdown shell comments H1):
+  AssertEqual flexagon#folds#comment_marker(1, "#"), '='
+Execute (test markdown shell comments non-comment):
+  AssertEqual flexagon#folds#comment_marker(2, "#"), '='
+Execute (test markdown shell comments H2):
+  AssertEqual flexagon#folds#markdown(3), '>1'
+Execute (test markdown shell comments H3):
+  AssertEqual flexagon#folds#markdown(4), '>2'
+
+Given markdown (regular markdown):
+  # H-1 =============
+  This is not a comment
+  ## H-2 =============
+  ## no closing mark
+
+Execute (test regular markdown H1):
+  AssertEqual flexagon#folds#markdown(1), '>1'
+Execute (test regular markdown not comment):
+  AssertEqual flexagon#folds#markdown(2), '='
+Execute (test regular markdown H2):
+  AssertEqual flexagon#folds#markdown(3), '>2'
+  AssertEqual flexagon#folds#markdown(4), '>2'
+
+
