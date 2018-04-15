@@ -32,7 +32,7 @@ Some other natural schemes along this line:
 
 * Javadoc/Doxygen
 
-* "Flourpot" header bars
+* "Flower pot" header bars
 
 # Visualization
 
