@@ -31,19 +31,28 @@ complete.
 ================================================================================
 3. FOLDS                                   *FlexagonFolds*
 
-wiki        Look for wiki style headers.
-            These fold markers can be after comment markers.
-            Header level's are recognized
-            This makes a decent alternative to vim fold marks that's
-            less obtrusive then vim's choice
+wiki        Look for Mediawiki style headers ( = HEADER ) embedded in
+            comments. Up to 4 levels are recognized.
 
-header      Look for flowerpot style headers. One level of fold
+markdown    Similar to wiki header, but with markdown hash style
+            headers ( # HEADER ). This also recognizes standard header
+            levels. This can be applied against standard markdown and
+            will work where hash comment markers are valid.
+
+javadoc     Doxygen/javadoc style "doubled up" comments, "/**" for c,
+            '//' for php/cpp. This is a single layer fold (although it
+            makes some sense to extend the metaphor)
+
+header      Look for flowerpot style headers. One level of fold.
+            Recognizes "bars" of various sorts and attempts to a
+            relevant comment to fold on.
 
 space       Use blank lines as section/fold separators
             As a first order fold this works very well on a wide variety
             of files
 
-comment     fold non-commented code
+comment     fold non-commented code. This is useful approximation of
+            Donald Knuth's "Literate" code. 
 
 code        fold comments
 
