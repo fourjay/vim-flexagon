@@ -71,6 +71,13 @@ endfunction
 function! FoldText()
     let l:foldsize = (v:foldend-v:foldstart)
     let l:line = getline(v:foldstart)
+    " use a line with info
+    if len(l:line) <= 4
+        let l:next_line = getline(v:foldstart + 1)
+        if len(l:next_line) > 4
+            let l:line = l:next_line
+        endif
+    endif
     let l:line = l:line[0:60]
     let l:line_leader = '+-' . repeat( '---', v:foldlevel - 1 )
     let l:text_length= strlen(l:line . l:line_leader)
