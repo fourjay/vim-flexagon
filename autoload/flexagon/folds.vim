@@ -151,7 +151,7 @@ function! flexagon#folds#header(lnum) abort
     return '='
 endfunction
 
-function! flexagon#folds#javadoc(lnum) abort
+function! flexagon#folds#doxygen(lnum) abort
     if ! flexagon#folds#iscomment(a:lnum)
         return '='
     endif

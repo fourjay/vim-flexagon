@@ -39,7 +39,7 @@ markdown    Similar to wiki header, but with markdown hash style
             levels. This can be applied against standard markdown and
             will work where hash comment markers are valid.
 
-javadoc     Doxygen/javadoc style "doubled up" comments, "/**" for c,
+doxygen     Doxygen/javadoc style "doubled up" comments, "/**" for c,
             '//' for php/cpp. This is a single layer fold (although it
             makes some sense to extend the metaphor)
 

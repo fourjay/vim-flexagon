@@ -90,7 +90,7 @@ Leading comments are expected.
 * ***markdown*** similar to wiki, but use hash header. Also works on regular
   markdown
 
-* ***javadoc*** Not a true/full javadoc/doxygen fold, but a useful approximation.
+* ***doxygen*** Not a true/full javadoc/doxygen fold, but a useful approximation.
   Fold when an extra comment character is present, i.e.:
   * ``/**`` in ``c``
   * ``##`` in shell, perl etc.
