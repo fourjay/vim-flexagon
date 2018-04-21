@@ -93,7 +93,7 @@ if ! exists('flexagon_disable_foldtext')
     set foldtext=FoldText()
 endif
 
-function s:bubble_fold(direction)
+function! s:bubble_fold(direction) abort
     if foldlevel('.') != 0
         normal! zC
     endif
@@ -108,10 +108,14 @@ function s:bubble_fold(direction)
 endfunction
 
 nmap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
-nmap <unique> <silent> ZJ <Plug>BubbleDown
+if mapcheck( 'ZJ', 'n') !=# ''
+    nmap <unique> <silent> ZJ <Plug>BubbleDown
+endif
 
 nmap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
-nmap <unique> <silent> ZK <Plug>BubbleUp
+if mapcheck( 'ZK', 'n') !=# ''
+    nmap <unique> <silent> ZK <Plug>BubbleUp
+endif
 
 let &cpoptions = s:save_cpo
 unlet s:save_cpo
