@@ -9,23 +9,23 @@ set cpoptions&vim
 
 let s:folds_list = [  ]
 
-function! Flexagon_register_fold( fold )
+function! s:register_fold( fold )
     call add( s:folds_list, a:fold )
 endfunction
 
-call Flexagon_register_fold( 'wiki'     )
-call Flexagon_register_fold( 'header'   )
-call Flexagon_register_fold( 'space'    )
-call Flexagon_register_fold( 'comment'  )
-call Flexagon_register_fold( 'braces'   )
-call Flexagon_register_fold( 'code'     )
-call Flexagon_register_fold( 'ini'      )
-call Flexagon_register_fold( 'manual'   )
-call Flexagon_register_fold( 'markdown' )
-call Flexagon_register_fold( 'doxygen'  )
-call Flexagon_register_fold( 'indent'   )
-call Flexagon_register_fold( 'function' )
-call Flexagon_register_fold( 'html'     )
+call s:register_fold( 'wiki'     )
+call s:register_fold( 'header'   )
+call s:register_fold( 'space'    )
+call s:register_fold( 'comment'  )
+call s:register_fold( 'braces'   )
+call s:register_fold( 'code'     )
+call s:register_fold( 'ini'      )
+call s:register_fold( 'manual'   )
+call s:register_fold( 'markdown' )
+call s:register_fold( 'doxygen'  )
+call s:register_fold( 'indent'   )
+call s:register_fold( 'function' )
+call s:register_fold( 'html'     )
 
 function! s:fold_complete(...)
     return join( s:folds_list, "\n" )
