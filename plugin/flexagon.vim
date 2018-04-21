@@ -9,8 +9,15 @@ set cpoptions&vim
 
 let s:folds_list = [  ]
 
-function! s:register_fold( fold )
+function! s:register_fold( fold ) abort
     call add( s:folds_list, a:fold )
+endfunction
+
+function! s:has_included_fold(foldname) abort
+    if index( s:folds_list, a:foldname ) != -1
+        return 1
+    endif
+    return 0
 endfunction
 
 call s:register_fold( 'wiki'     )
@@ -27,12 +34,12 @@ call s:register_fold( 'indent'   )
 call s:register_fold( 'function' )
 call s:register_fold( 'html'     )
 
-function! s:fold_complete(...)
+function! s:fold_complete(...) abort
     return join( s:folds_list, "\n" )
 endfunction
 command! -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custom_fold("<args>")
 
-function! s:custom_fold(fold)
+function! s:custom_fold(fold) abort
     if a:fold ==# 'manual'
         call <SID>set_stock_fold('manual')
         return
@@ -41,8 +48,10 @@ function! s:custom_fold(fold)
         call <SID>set_stock_fold('indent')
         return
     endif
-    setlocal foldmethod=expr
-    execute 'setlocal foldexpr=flexagon#folds#' . a:fold . '(v:lnum)'
+    if s:has_included_fold( a:fold )
+        setlocal foldmethod=expr
+        execute 'setlocal foldexpr=flexagon#folds#' . a:fold . '(v:lnum)'
+    endif
     if a:fold ==# 'braces'
         setlocal foldmethod=marker
         setlocal foldmarker={,}
@@ -56,19 +65,19 @@ function! s:custom_fold(fold)
     normal! zA
 endfunction
 
-function! s:set_stock_fold(method)
+function! s:set_stock_fold(method) abort
     execute 'setlocal foldmethod=' . a:method
     call <SID>set_fold_settings()
 endfunction
 
-function! s:set_fold_settings()
+function! s:set_fold_settings() abort
     setlocal foldcolumn=3
     setlocal foldlevel=0
     setlocal foldenable
     setlocal foldtext=FoldText()
 endfunction
 
-function! FoldText()
+function! FoldText() abort
     let l:foldsize = (v:foldend-v:foldstart)
     let l:line = getline(v:foldstart)
     " use a line with info
