@@ -117,12 +117,12 @@ function! s:bubble_fold(direction) abort
 endfunction
 
 nmap <Plug>BubbleDown :call <SID>bubble_fold("down")<cr>
-if mapcheck( 'ZJ', 'n') !=# ''
+if mapcheck( 'ZJ', 'n') ==# ''
     nmap <unique> <silent> ZJ <Plug>BubbleDown
 endif
 
 nmap <Plug>BubbleUp :call <SID>bubble_fold("up")<cr>
-if mapcheck( 'ZK', 'n') !=# ''
+if mapcheck( 'ZK', 'n') ==# ''
     nmap <unique> <silent> ZK <Plug>BubbleUp
 endif
 
