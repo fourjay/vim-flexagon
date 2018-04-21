@@ -77,6 +77,9 @@ default. Disable it as desired.
 
 let g:flexagon_disable_foldtext = 1
 
+Please note, the folding function tries to skip "empty" text in an
+effort to make the fold text more useful.
+
 ================================================================================
 4. MAPPINGS                                *FlexagonFolds*
 
