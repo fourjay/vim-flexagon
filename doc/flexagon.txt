@@ -71,14 +71,22 @@ indent      Reset to vim indent folding
 ================================================================================
 4. SETTINGS                                *FlexagonSettings*
 
-                                           *flexagon_disable_foldtext* 
-I've added foldtext formatting that appeals to me. It's enabled by
-default. Disable it as desired.
+                                           *flexagon_disable_foldtext*
+Flexagon has it's own foldtext formatting. It's enabled by default. It
+shouldn't be too annoying and features a simple but useful search for
+"relevant" fold text that compliments the included folds.
+
+To disabled it:
 
 let g:flexagon_disable_foldtext = 1
 
 Please note, the folding function tries to skip "empty" text in an
 effort to make the fold text more useful.
+
+If you like the tab complete Fold, but need a fold not supplied,
+Flexagon allows you to register your own fold.
+
+:call flexgon#userfold#register('fold_alias', 'FunctionName')
 
 ================================================================================
 4. MAPPINGS                                *FlexagonFolds*
