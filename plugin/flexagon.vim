@@ -6,6 +6,7 @@ let g:loaded_flexagon = 1
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
+command! -nargs=* FlexagonRegisterFold :call flexagon#userfold#register(<f-args>)
 
 let s:folds_list = [  ]
 
@@ -35,9 +36,17 @@ call s:register_fold( 'function' )
 call s:register_fold( 'html'     )
 
 function! s:fold_complete(...) abort
-    return join( s:folds_list, "\n" )
+    let l:fold_completions = extend( s:folds_list , flexagon#userfold#keys() )
+    return join( l:fold_completions, "\n" )
 endfunction
 command! -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custom_fold("<args>")
+
+" let s:user_selected_fold = ''
+" function! FlexagonUserFunction(lnum) abort
+"     let l:func_name = s:user_folds[s:user_selected_fold]
+"     let l:Func = function( l:func_name )
+"     return l:Func( a:lnum )
+" endfunction
 
 function! s:custom_fold(fold) abort
     if a:fold ==# 'manual'
@@ -51,6 +60,11 @@ function! s:custom_fold(fold) abort
     if s:has_included_fold( a:fold )
         setlocal foldmethod=expr
         execute 'setlocal foldexpr=flexagon#folds#' . a:fold . '(v:lnum)'
+    endif
+    if flexagon#userfold#defined( a:fold )
+        call flexagon#userfold#set_user_fold( a:fold )
+        setlocal foldmethod=expr
+        setlocal foldexpr=flexagon#userfold#user_fold(v:lnum)
     endif
     if a:fold ==# 'braces'
         setlocal foldmethod=marker
