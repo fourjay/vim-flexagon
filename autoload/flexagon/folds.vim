@@ -132,6 +132,15 @@ function! flexagon#folds#ini(lnum) abort
     endif
     return '='
 endfunction
+
+function! flexagon#folds#bar(lnum) abort
+    if ! flexagon#folds#iscomment(a:lnum)
+        if getline(a:lnum) =~# '\v[=-_]{4,}'
+            return '>1'
+        endif
+    endif
+    return '='
+endfunction
     
 " flowerpot style headers
 function! flexagon#folds#header(lnum) abort

@@ -21,19 +21,20 @@ function! s:has_included_fold(foldname) abort
     return 0
 endfunction
 
-call s:register_fold( 'wiki'     )
-call s:register_fold( 'header'   )
-call s:register_fold( 'space'    )
-call s:register_fold( 'comment'  )
+call s:register_fold( 'bar'      )
 call s:register_fold( 'braces'   )
 call s:register_fold( 'code'     )
+call s:register_fold( 'comment'  )
+call s:register_fold( 'doxygen'  )
+call s:register_fold( 'function' )
+call s:register_fold( 'header'   )
+call s:register_fold( 'html'     )
+call s:register_fold( 'indent'   )
 call s:register_fold( 'ini'      )
 call s:register_fold( 'manual'   )
 call s:register_fold( 'markdown' )
-call s:register_fold( 'doxygen'  )
-call s:register_fold( 'indent'   )
-call s:register_fold( 'function' )
-call s:register_fold( 'html'     )
+call s:register_fold( 'space'    )
+call s:register_fold( 'wiki'     )
 
 function! s:fold_complete(...) abort
     let l:fold_completions = extend( s:folds_list , flexagon#userfold#keys() )
