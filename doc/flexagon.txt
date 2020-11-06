@@ -43,8 +43,7 @@ bar         comment with long string of =, -, or _
             single level fold
 
 doxygen     Doxygen/javadoc style "doubled up" comments, "/**" for c,
-            '//' for php/cpp. This is a single layer fold (although it
-            makes some sense to extend the metaphor)
+            '//' for php/cpp. This is supports two layers
 
 header      Look for flowerpot style headers. One level of fold.
             Recognizes "bars" of various sorts and attempts to a
