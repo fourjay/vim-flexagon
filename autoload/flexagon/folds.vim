@@ -189,7 +189,7 @@ function! flexagon#folds#doxygen(lnum) abort
         let l:comment_char = strcharpart( &commentstring, 0, 1 )
         if match( l:cline, '\v^\s*[' . l:comment_char . ']{4}' ) != -1
             return '>2'
-        if match( l:cline, '\v^\s*[' . l:comment_char . ']{3}' ) != -1
+        elseif match( l:cline, '\v^\s*[' . l:comment_char . ']{3}' ) != -1
             return '>1'
         endif
     endif
