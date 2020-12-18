@@ -65,9 +65,9 @@ function! flexagon#folds#comment_marker(lnum, leader_char ) abort
     if ! flexagon#folds#iscomment(a:lnum)
         return '='
     endif
-    let l:cline = strpart( getline(a:lnum), 0, 8)
+    let l:cline = strpart( getline(a:lnum), 0, 15 )
     for l:i in [ 1, 2, 3, 4]
-        let l:match_wiki_header = '\v^[^' . a:leader_char . ']*[' . a:leader_char . ']{' . l:i . '}[^' . a:leader_char . ']' )
+        let l:match_wiki_header = '\v^[^' . a:leader_char . ']*[' . a:leader_char . ']{' . l:i . '}[^' . a:leader_char . ']'
         if match( l:cline, l:match_wiki_header ) != -1
             if a:leader_char ==# '#' && &commentstring =~# '#'
                 if l:i == 1
