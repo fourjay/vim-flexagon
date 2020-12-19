@@ -18,6 +18,7 @@ Given markdown (regular markdown):
   This is not a comment
   ## H-2 =============
   ## no closing mark
+  ### no closing mark
 
 Execute (test regular markdown H1):
   AssertEqual flexagon#folds#markdown(1), '>1'
@@ -25,6 +26,9 @@ Execute (test regular markdown not comment):
   AssertEqual flexagon#folds#markdown(2), '='
 Execute (test regular markdown H2):
   AssertEqual flexagon#folds#markdown(3), '>2'
+Execute (test regular markdown H2, no closing bar):
   AssertEqual flexagon#folds#markdown(4), '>2'
+Execute (test regular markdown H3):
+  AssertEqual flexagon#folds#markdown(5), '>3'
 
 
