@@ -3,14 +3,17 @@ Given sh (mediawiki comments):
   This is not a comment
   # == H-2 =============
   # == no closing mark
+  #     # === leading spaces
 
 Execute (test mediawiki H1):
-  AssertEqual flexagon#folds#comment_marker(1, "="), '>1'
+  AssertEqual flexagon#folds#comment_marker(1, '='), '>1'
 Execute (test mediawiki non-comment):
-  AssertEqual flexagon#folds#comment_marker(2, "="), '='
+  AssertEqual flexagon#folds#comment_marker(2, '='), '='
 Execute (test mediawiki H2):
-  AssertEqual flexagon#folds#comment_marker(3, "="), '>2'
+  AssertEqual flexagon#folds#comment_marker(3, '='), '>2'
 Execute (test mediawiki H2 no closing):
-  AssertEqual flexagon#folds#comment_marker(4, "="), '>2'
+  AssertEqual flexagon#folds#comment_marker(4, '='), '>2'
+Execute (test indents do not stop):
+  AssertEqual flexagon#folds#comment_marker(5, '='), '>3'
 
 
