@@ -23,7 +23,7 @@ Given c (header):
      */
   #include 'stdio.h';
 
-Execute (test flowerpot header line):
+Execute (test C flowerpot header line):
   AssertEqual flexagon#folds#header(1), '='
   AssertEqual flexagon#folds#header(2), '='
   AssertEqual flexagon#folds#header(3), '>1'
