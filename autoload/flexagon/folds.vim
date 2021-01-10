@@ -151,8 +151,8 @@ function! flexagon#folds#header(lnum) abort
     " has some content
     if  getline(a:lnum) =~# '\v\S{2,}'
         " if before or after is flowerpot
-        if getline( a:lnum - 1 ) =~# '\v[*+=_-]{5,}'
-                    \ ||  getline( a:lnum + 1 ) =~# '\v[*+=_-]{5,}'
+        if getline( a:lnum - 1 ) =~# '\v[#*+=_-]{5,}'
+                    \ ||  getline( a:lnum + 1 ) =~# '\v[#*+=_-]{5,}'
             return '>1'
         else
             return '='
