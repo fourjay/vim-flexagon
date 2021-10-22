@@ -33,6 +33,7 @@ call s:register_fold( 'indent'   )
 call s:register_fold( 'ini'      )
 call s:register_fold( 'manual'   )
 call s:register_fold( 'markdown' )
+call s:register_fold( 'php'      )
 call s:register_fold( 'space'    )
 call s:register_fold( 'wiki'     )
 
@@ -70,6 +71,11 @@ function! s:custom_fold(fold) abort
     if a:fold ==# 'braces'
         setlocal foldmethod=marker
         setlocal foldmarker={,}
+        setlocal foldnestmax=1
+    endif
+    if a:fold ==# 'php'
+        setlocal foldmethod=marker
+        setlocal foldmarker=<?,?>
         setlocal foldnestmax=1
     endif
     call <SID>set_fold_settings()
