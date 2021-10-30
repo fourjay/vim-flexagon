@@ -69,9 +69,12 @@ manual      Reset to vim manual folding
 
 indent      Reset to vim indent folding
 
-php         fold on embedded <% %> markers. "php" is a bit of a
-            misnomer, as this markdown is shared across several
-            languages.
+php         fold php code embedded in between <? ?> markers. Adding a
+            "bang" (!) reverses the orientation, folding non-embedded
+            code.
+
+asp         Fold asp code embedded in between <% %> markers. Works for
+            ASP as well as languages like JSP.
 
 ================================================================================
 4. SETTINGS                                *FlexagonSettings*
