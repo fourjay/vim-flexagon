@@ -41,7 +41,7 @@ function! s:fold_complete(...) abort
     let l:fold_completions = extend( s:folds_list , flexagon#userfold#keys() )
     return join( l:fold_completions, "\n" )
 endfunction
-command! -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custom_fold("<args>")
+command! -bang -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custom_fold("<args>", "<bang>")
 
 " let s:user_selected_fold = ''
 " function! FlexagonUserFunction(lnum) abort
