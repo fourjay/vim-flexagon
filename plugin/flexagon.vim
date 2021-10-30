@@ -50,7 +50,7 @@ command! -bang -nargs=1 -complete=custom,<SID>fold_complete Fold call <SID>custo
 "     return l:Func( a:lnum )
 " endfunction
 
-function! s:custom_fold(fold) abort
+function! s:custom_fold(fold, bang) abort
     if a:fold ==# 'manual'
         call <SID>set_stock_fold('manual')
         return
@@ -75,7 +75,13 @@ function! s:custom_fold(fold) abort
     endif
     if a:fold ==# 'php'
         setlocal foldmethod=marker
-        setlocal foldmarker=<?,?>
+        if a:bang ==# "!"
+            setlocal foldmarker=?>,<?
+        else
+            setlocal foldmarker=<?,?>
+        endif
+        setlocal foldnestmax=1
+    endif
         setlocal foldnestmax=1
     endif
     call <SID>set_fold_settings()
