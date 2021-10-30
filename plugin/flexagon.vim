@@ -21,6 +21,7 @@ function! s:has_included_fold(foldname) abort
     return 0
 endfunction
 
+call s:register_fold( 'asp'      )
 call s:register_fold( 'bar'      )
 call s:register_fold( 'braces'   )
 call s:register_fold( 'code'     )
@@ -82,6 +83,13 @@ function! s:custom_fold(fold, bang) abort
         endif
         setlocal foldnestmax=1
     endif
+    if a:fold ==# 'asp'
+        setlocal foldmethod=marker
+        if a:bang ==# "!"
+            setlocal foldmarker=%>,<%
+        else
+            setlocal foldmarker=<%,%>
+        endif
         setlocal foldnestmax=1
     endif
     call <SID>set_fold_settings()
